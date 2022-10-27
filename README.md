@@ -67,3 +67,4 @@ https://raw.githubusercontent.com/ros/ros_tutorials/kinetic-devel/rospy_tutorial
 1. Have a  `FROM ros:noetic` container that runs the `roscore -p <port>` command with a known hostname
 2. All other containers are with ROS-nodes are `FROM ros:noetic` and should have the `ROS_MASTER_URI=http://<core_hostname>:<port>` environmental variable exported
 3. _Note_: similar to the carsim demo the containers should be able to resolve the roscore-container hostname (custom network or host networking)
+4. This config should not care about having multiple node containers per pod. So the *assumption* here is that the container/pod configuration here *should* not require any special attention as long as the roscore master node is reachable.
