@@ -49,7 +49,7 @@ root@leda-3502:~/multus-cni-master# kubectl logs --follow -l app=ros-listener
 # [Eclipse Muto](https://github.com/eclipse-muto/agent) 
 
 
- - It seems that Muto is based on ROS(1) which uses some custom stuff and not DDS as middleware for inter-node comms
+ - It seems that Muto is based on ROS(1)-noetic which uses some custom stuff and not DDS as middleware for inter-node comms
  - This means that concrete testing with ROS(1) should be done.
  - ROSv1 uses a roscore "master" which serves as a rendezvous server.
  - The general architecture for running roscore-talker-listener in k3s should then be pretty similar to how we've implemented the carsim-driversim-kuksa communication 
@@ -63,7 +63,7 @@ https://raw.githubusercontent.com/ros/ros_tutorials/kinetic-devel/rospy_tutorial
 ```
 https://raw.githubusercontent.com/ros/ros_tutorials/kinetic-devel/rospy_tutorials/001_talker_listener/talker.py
 ```
-
-- Have a  `FROM ros:noetic` container that runs the `roscore` command with a known hostname
-- All other containers are with nodes are `FROM ros:noetic` should have the `ROS_MASTER_URI=http://<core_hostname>:11311` environmental variable exported
-- _Note_: similar to the carsim demo the containers should be able to resolve the roscore-container hostname (custom network or host networking)
+## Running ROSv1 in containers
+1. Have a  `FROM ros:noetic` container that runs the `roscore -p <port>` command with a known hostname
+2. All other containers are with ROS-nodes are `FROM ros:noetic` and should have the `ROS_MASTER_URI=http://<core_hostname>:<port>` environmental variable exported
+3. _Note_: similar to the carsim demo the containers should be able to resolve the roscore-container hostname (custom network or host networking)
